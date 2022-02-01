@@ -1,18 +1,15 @@
 import logging
 from time import sleep
 
-from pitop.common.common_ids import DeviceID
+from pitopd.common.common_ids import DeviceID
 from systemd.daemon import notify
 
 from . import state
 from .hub_manager import HubManager
-from .idle_monitor import IdleMonitor
 from .interface_manager import InterfaceManager
-from .notification_manager import NotificationManager
 from .peripheral_manager import PeripheralManager
-from .pipe_manager import PipeManager
 from .power_manager import PowerManager
-from .server import PublishServer, RequestServer
+from .server import RequestServer
 
 logger = logging.getLogger(__name__)
 
@@ -21,19 +18,15 @@ class App:
     def __init__(self):
         self._run = True
 
-        self._pipe_manager = PipeManager()
         self._publish_server = PublishServer()
         self._power_manager = PowerManager()
         self._hub_manager = HubManager()
-        self._idle_monitor = IdleMonitor()
         self._interface_manager = InterfaceManager()
-        self._notification_manager = NotificationManager()
         self._peripheral_manager = PeripheralManager()
         self._request_server = RequestServer()
 
         self._power_manager.initialise(self)
         self._hub_manager.initialise(self)
-        self._idle_monitor.initialise(self)
         self._peripheral_manager.initialise(self)
         self._request_server.initialise(self)
 
@@ -48,7 +41,6 @@ class App:
 
         self._peripheral_manager.initialise_device_id(self.device_id)
         self._power_manager.set_device_id(self.device_id)
-        self._pipe_manager.set_device_id(self.device_id)
 
     def _set_host_device_id_from_hub(self):
         self._set_host_device_id(self._hub_manager.get_device_id())
@@ -66,15 +58,6 @@ class App:
             return False
 
         if self._hub_manager.connect_to_hub():
-            self._pipe_manager.set_hub_serial_number(
-                self._hub_manager._active_hub_module.get_serial_id()
-            )
-            self._pipe_manager.set_battery_serial_number(
-                self._hub_manager._active_hub_module.get_battery_serial_number()
-            )
-            self._pipe_manager.set_display_serial_number(
-                self._hub_manager._active_hub_module.get_display_serial_id()
-            )
             self._hub_manager.start()
         else:
             logger.error("No pi-top hub detected")
@@ -120,8 +103,6 @@ class App:
             logger.error("Unable to start peripheral manager")
             return False
 
-        self._idle_monitor.start()
-
         if self._request_server.start_listening() is False:
             logger.error("Unable to start listening on request server")
             return False
@@ -142,7 +123,6 @@ class App:
         # Stop the other classes
 
         self._request_server.stop_listening()
-        self._idle_monitor.stop()
         self._peripheral_manager.stop()
         self._hub_manager.stop()
         self._publish_server.stop_listening()
@@ -179,10 +159,10 @@ class App:
         return self._peripheral_manager.get_peripheral_id_enabled(peripheral_id)
 
     def on_request_get_screen_blanking_timeout(self):
-        return self._idle_monitor.get_configured_timeout()
+        return -1
 
     def on_request_set_screen_blanking_timeout(self, timeout):
-        return self._idle_monitor.set_configured_timeout(timeout)
+        ...
 
     def on_request_get_lid_open_state(self):
         if self._hub_manager.get_lid_open_state():
@@ -220,7 +200,6 @@ class App:
         if spi_bus == 0:
             self._interface_manager.spi0 = True
             # self._interface_manager.spi1 = False  # Can't be done?
-            self._notification_manager.display_old_spi_bus_still_active_message()
 
         else:
             self._interface_manager.spi0 = False
@@ -364,12 +343,10 @@ class App:
 
     def on_unsupported_hardware(self):
         self._publish_server.publish_unsupported_hardware()
-        self._notification_manager.display_unsupported_hardware_message()
         self._hub_manager.unblank_screen()
 
     def on_reboot_required(self):
         self._publish_server.publish_reboot_required()
-        self._notification_manager.display_reboot_message()
         self._hub_manager.unblank_screen()
 
     ###########################################
@@ -377,14 +354,12 @@ class App:
     ###########################################
 
     def on_clear_battery_warning(self):
-        self._notification_manager.clear_battery_warning_message()
+        ...
 
     def on_low_battery_warning(self):
         self._publish_server.publish_low_battery_warning()
-        self._notification_manager.display_low_battery_warning_message()
         self._hub_manager.unblank_screen()
 
     def on_critical_battery_warning(self):
         self._publish_server.publish_critical_battery_warning()
-        self._notification_manager.display_critical_battery_warning_message()
         self._hub_manager.unblank_screen()

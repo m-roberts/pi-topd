@@ -3,8 +3,8 @@ from os.path import isfile
 from platform import uname
 from time import sleep
 
-from pitop.common.common_ids import DeviceID
-from pitop.common.i2c_device import I2CDevice
+from pitopd.common.common_ids import DeviceID
+from pitopd.common.i2c_device import I2CDevice
 from spidev import SpiDev
 
 from . import state

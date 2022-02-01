@@ -4,7 +4,7 @@ from os import getenv
 from threading import Lock
 
 import zmq
-from pitop.common.ptdm import Message
+from pitopd.common.ptdm import Message
 
 logger = logging.getLogger(__name__)
 

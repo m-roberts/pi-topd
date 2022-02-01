@@ -2,7 +2,7 @@ import sys
 import unittest
 from unittest.mock import Mock
 
-from pitop.common.common_ids import DeviceID
+from pitopd.common.common_ids import DeviceID
 
 from pitopd.app import App
 

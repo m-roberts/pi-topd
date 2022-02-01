@@ -8,7 +8,7 @@ Last-Update: 2021-09-05
 @@ -4,7 +4,7 @@
  from time import sleep
  
- from pitop.common.counter import Counter
+ from pitopd.common.counter import Counter
 -from smbus2 import SMBus
 +from smbus import SMBus
  
@@ -19,7 +19,7 @@ Last-Update: 2021-09-05
 @@ -2,7 +2,7 @@
  from math import pow
  
- from pitop.common.common_ids import DeviceID
+ from pitopd.common.common_ids import DeviceID
 -from smbus2 import SMBus
 +from smbus import SMBus
  
@@ -29,8 +29,8 @@ Last-Update: 2021-09-05
 +++ b/pitopd/ptspeaker/configuration.py
 @@ -5,7 +5,7 @@
  
- from pitop.common.common_ids import DeviceID
- from pitop.common.current_session_info import get_user_using_first_display
+ from pitopd.common.common_ids import DeviceID
+ from pitopd.common.current_session_info import get_user_using_first_display
 -from smbus2 import SMBus
 +from smbus import SMBus
  

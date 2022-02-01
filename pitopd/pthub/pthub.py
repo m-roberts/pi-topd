@@ -1,6 +1,6 @@
 import logging
 
-from pitop.common.common_ids import DeviceID
+from pitopd.common.common_ids import DeviceID
 
 from . import pthub_i2c, pthub_spi
 

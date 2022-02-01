@@ -2,7 +2,7 @@ import logging
 from threading import Thread
 from time import sleep
 
-from pitop.common.i2c_device import I2CDevice
+from pitopd.common.i2c_device import I2CDevice
 
 logger = logging.getLogger(__name__)
 

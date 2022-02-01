@@ -7,10 +7,10 @@ from shutil import copy
 from subprocess import CalledProcessError, call, check_output
 from sys import version_info
 
-from pitop.common.command_runner import run_command
-from pitop.common.current_session_info import get_current_user
-from pitop.common.file_ops import create_temp_file, sed_inplace
-from pitop.common.formatting import get_uncommented_line, is_line_commented
+from pitopd.common.command_runner import run_command
+from pitopd.common.current_session_info import get_current_user
+from pitopd.common.file_ops import create_temp_file, sed_inplace
+from pitopd.common.formatting import get_uncommented_line, is_line_commented
 
 from .utils import get_project_root
 

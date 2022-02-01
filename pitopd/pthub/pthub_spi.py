@@ -6,8 +6,8 @@ from enum import Enum
 from platform import uname
 from time import sleep
 
-from pitop.common.common_ids import DeviceID
-from pitop.common.counter import Counter
+from pitopd.common.common_ids import DeviceID
+from pitopd.common.counter import Counter
 
 logger = logging.getLogger(__name__)
 

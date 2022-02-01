@@ -1,7 +1,7 @@
 import logging
 from os import path
 
-from pitop.common.command_runner import run_command
+from pitopd.common.command_runner import run_command
 
 logger = logging.getLogger(__name__)
 _TIMEOUT = 10

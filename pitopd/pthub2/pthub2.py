@@ -1,6 +1,6 @@
 import logging
 
-from pitop.common.common_ids import DeviceID
+from pitopd.common.common_ids import DeviceID
 
 from .pthub2_connection import HubConnection
 from .pthub2_state import State
