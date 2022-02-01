@@ -1,7 +1,7 @@
 import logging
 from math import pow
 
-from pitop.common.common_ids import DeviceID
+from pitopd.common.common_ids import DeviceID
 from smbus2 import SMBus
 
 from ..sys_config import HDMI, I2S, UART

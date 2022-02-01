@@ -2,8 +2,8 @@ import logging
 from threading import Thread
 from time import sleep
 
-from pitop.common import bitwise_ops
-from pitop.common.i2c_device import I2CDevice
+from pitopd.common import bitwise_ops
+from pitopd.common.i2c_device import I2CDevice
 
 from .internal.apcad import APCAD
 from .internal.battery import BatteryControl

@@ -4,8 +4,8 @@ from threading import Thread
 from time import sleep
 
 import zmq
-from pitop.common.common_ids import DeviceID
-from pitop.common.ptdm import Message
+from pitopd.common.common_ids import DeviceID
+from pitopd.common.ptdm import Message
 
 logger = logging.getLogger(__name__)
 

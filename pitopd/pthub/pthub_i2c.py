@@ -3,7 +3,7 @@ import traceback
 from threading import Thread
 from time import sleep
 
-from pitop.common.counter import Counter
+from pitopd.common.counter import Counter
 from smbus2 import SMBus
 
 logger = logging.getLogger(__name__)

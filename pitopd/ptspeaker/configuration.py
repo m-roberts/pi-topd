@@ -3,8 +3,8 @@ import traceback
 from os import path
 from sys import exit
 
-from pitop.common.common_ids import DeviceID
-from pitop.common.current_session_info import get_user_using_first_display
+from pitopd.common.common_ids import DeviceID
+from pitopd.common.current_session_info import get_user_using_first_display
 from smbus2 import SMBus
 
 from .sys_config import HDMI, I2C, I2S

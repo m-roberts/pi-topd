@@ -1,7 +1,7 @@
 import logging
 from time import sleep
 
-from pitop.common.common_ids import DeviceID
+from pitopd.common.common_ids import DeviceID
 
 from .pthub import pthub
 from .pthub2 import pthub2
